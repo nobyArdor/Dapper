@@ -2507,7 +2507,11 @@ namespace Dapper
             bool filterParams = false;
             if (removeUnused && identity.commandType.GetValueOrDefault(CommandType.Text) == CommandType.Text)
             {
-                filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
+                //original
+                //filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
+                //mod
+                var smellsLikeOleDbChecker = SqlMapperCustom.SmellsLikeOleDb ?? smellsLikeOleDb;
+                filterParams = !smellsLikeOleDbChecker.IsMatch(identity.sql);
             }
             var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
 
@@ -2616,7 +2620,12 @@ namespace Dapper
                     continue;
                 }
 #pragma warning disable 618
-                DbType? dbType = LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler handler);
+                //orig
+                //DbType? dbType = LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler handler);
+                //mod
+                ITypeHandler handler = null;
+                DbType? dbType = SqlMapperCustom.ExternalLookupDbType?.Invoke(prop) ?? LookupDbType(prop.PropertyType, prop.Name, true, out handler);
+
 #pragma warning restore 618
                 if (dbType == DynamicParameters.EnumerableMultiParameter)
                 {
@@ -3678,7 +3687,10 @@ namespace Dapper
                         il.EmitCall(OpCodes.Call, typeof(Type).GetMethod(nameof(Type.GetTypeFromHandle)), null);// stack is now [...][enum-type]
                         il.Emit(OpCodes.Ldloc, stringEnumLocal); // stack is now [...][enum-type][string]
                         il.Emit(OpCodes.Ldc_I4_1); // stack is now [...][enum-type][string][true]
-                        il.EmitCall(OpCodes.Call, enumParse, null); // stack is now [...][enum-as-object]
+                        //original
+                        //il.EmitCall(OpCodes.Call, enumParse, null); // stack is now [...][enum-as-object]
+                        //mod
+                        il.EmitCall(OpCodes.Call, SqlMapperCustom.EnumParseMethod ?? enumParse, null); // stack is now [...][enum-as-object]
                         il.Emit(OpCodes.Unbox_Any, unboxType); // stack is now [...][typed-value]
                     }
                     else
