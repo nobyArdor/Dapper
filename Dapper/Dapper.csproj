@@ -4,8 +4,13 @@
     <Title>Dapper</Title>
     <PackageTags>orm;sql;micro-orm</PackageTags>
     <Description>A high performance Micro-ORM supporting SQL Server, MySQL, Sqlite, SqlCE, Firebird etc..</Description>
-    <Authors>Sam Saffron;Marc Gravell;Nick Craver</Authors>
+    <ReleaseNotes> Add akara sql mapper custom</ReleaseNotes>
+    <Authors>Sam Saffron;Marc Gravell;Nick Craver; Akara Team</Authors>
     <TargetFrameworks>net461;netstandard2.0;net5.0</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

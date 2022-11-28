@@ -367,7 +367,10 @@ namespace Dapper
             handler = null;
             var nullUnderlyingType = Nullable.GetUnderlyingType(type);
             if (nullUnderlyingType != null) type = nullUnderlyingType;
-            if (type.IsEnum && !typeMap.ContainsKey(type))
+            //original
+            //if (type.IsEnum && !typeMap.ContainsKey(type))
+            //mod
+            if (!SqlMapperCustom.SendEnumAsObject && type.IsEnum && !typeMap.ContainsKey(type))
             {
                 type = Enum.GetUnderlyingType(type);
             }
