@@ -36,6 +36,10 @@ namespace Dapper
         /// Regex(@"(?&lt;![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_:])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled)
         /// </example>
         public static Regex? SmellsLikeOleDb { internal get; set; }
+        /// <summary>
+        /// Allow send Enum struct as object to type handling or under provider type handling
+        /// </summary>
+        public static bool SendEnumAsObject { internal get; set; }
     }
 }
 #nullable restore
