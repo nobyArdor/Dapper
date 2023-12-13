@@ -9,7 +9,7 @@ namespace Dapper
         /// <summary>
         /// Permits specifying certain SqlMapper values globally.
         /// </summary>
-        public static class Settings
+        public static partial class Settings
         {
             // disable single result by default; prevents errors AFTER the select being detected properly
             private const CommandBehavior DefaultAllowedCommandBehaviors = ~CommandBehavior.SingleResult;

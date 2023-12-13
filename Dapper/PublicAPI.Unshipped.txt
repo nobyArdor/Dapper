@@ -1,1 +1,5 @@
 ﻿#nullable enable
+static Dapper.SqlMapper.Settings.EnumParse.set -> void
+static Dapper.SqlMapper.Settings.ExternalLookupDbType.set -> void
+static Dapper.SqlMapper.Settings.SendEnumAsObject.set -> void
+static Dapper.SqlMapper.Settings.SmellsLikeOleDb.set -> void
