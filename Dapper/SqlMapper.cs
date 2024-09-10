@@ -2669,7 +2669,8 @@ namespace Dapper
                 }
 #pragma warning disable 618
                 //akara mod
-                DbType? dbType = Settings.ExternalLookupDbType?.Invoke(prop) ?? LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler? handler);
+                ITypeHandler? handler = null;
+                DbType? dbType = Settings.ExternalLookupDbType?.Invoke(prop) ?? LookupDbType(prop.PropertyType, prop.Name, true, out handler);
 
 #pragma warning restore 618
                 if (dbType == DynamicParameters.EnumerableMultiParameter)

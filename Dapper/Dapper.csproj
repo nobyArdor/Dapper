@@ -3,27 +3,21 @@
     <AssemblyName>Dapper</AssemblyName>
     <Title>Dapper</Title>
     <PackageTags>orm;sql;micro-orm</PackageTags>
-    <Description>A high performance Micro-ORM supporting SQL Server, MySQL, Sqlite, SqlCE, Firebird etc..</Description>
+    <Description>A high performance Micro-ORM supporting SQL Server, MySQL, Sqlite, SqlCE, Firebird etc. Major Sponsor: Dapper Plus from ZZZ Projects.</Description>
+    <TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ReleaseNotes> Add akara sql mapper custom</ReleaseNotes>
     <Authors>Sam Saffron;Marc Gravell;Nick Craver; Akara Team</Authors>
-    <TargetFrameworks>net461;netstandard2.0;net5.0</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0'">
-    <DefineConstants>$(DefineConstants);PLAT_NO_REMOTING;PLAT_SKIP_LOCALS_INIT</DefineConstants>
-    <Description>A high performance Micro-ORM supporting SQL Server, MySQL, Sqlite, SqlCE, Firebird etc. Major Sponsor: Dapper Plus from ZZZ Projects.</Description>
-    <Authors>Sam Saffron;Marc Gravell;Nick Craver</Authors>
-    <TargetFrameworks>net461;netstandard2.0;net5.0;net6.0;net7.0</TargetFrameworks>
-    <Nullable>enable</Nullable>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
   <ItemGroup>
     <!-- common base API goes here -->
     <AdditionalFiles Include="PublicAPI.*.txt" />
