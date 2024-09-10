@@ -445,7 +445,8 @@ namespace Dapper
             handler = null;
             var nullUnderlyingType = Nullable.GetUnderlyingType(type);
             if (nullUnderlyingType is not null) type = nullUnderlyingType;
-            if (type.IsEnum && !typeMap.ContainsKey(type))
+            //akara mod
+            if (!Settings.SendEnumAsObject && type.IsEnum && !typeMap.ContainsKey(type))
             {
                 type = Enum.GetUnderlyingType(type);
             }
@@ -2544,7 +2545,10 @@ namespace Dapper
             
             if (filterParams && Settings.SupportLegacyParameterTokens)
             {
-                filterParams = !CompiledRegex.LegacyParameter.IsMatch(identity.Sql);
+                //akara mod
+                var smellsLikeOleDbChecker = Settings.SmellsLikeOleDb ?? CompiledRegex.LegacyParameter;
+                filterParams = !smellsLikeOleDbChecker.IsMatch(identity.Sql);
+
             }
             
             var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, [typeof(IDbCommand), typeof(object)], type, true);
@@ -2664,7 +2668,9 @@ namespace Dapper
                     continue;
                 }
 #pragma warning disable 618
-                DbType? dbType = LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler? handler);
+                //akara mod
+                DbType? dbType = Settings.ExternalLookupDbType?.Invoke(prop) ?? LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler? handler);
+
 #pragma warning restore 618
                 if (dbType == DynamicParameters.EnumerableMultiParameter)
                 {
@@ -3730,7 +3736,8 @@ namespace Dapper
                         il.EmitCall(OpCodes.Call, typeof(Type).GetMethod(nameof(Type.GetTypeFromHandle))!, null);// stack is now [...][enum-type]
                         il.Emit(OpCodes.Ldloc, stringEnumLocal); // stack is now [...][enum-type][string]
                         il.Emit(OpCodes.Ldc_I4_1); // stack is now [...][enum-type][string][true]
-                        il.EmitCall(OpCodes.Call, enumParse, null); // stack is now [...][enum-as-object]
+                        //akara mod
+                        il.EmitCall(OpCodes.Call, Settings.EnumParseMethod ?? enumParse, null); // stack is now [...][enum-as-object]
                         il.Emit(OpCodes.Unbox_Any, unboxType); // stack is now [...][typed-value]
                     }
                     else
