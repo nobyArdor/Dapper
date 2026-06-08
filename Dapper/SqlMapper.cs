@@ -463,8 +463,7 @@ namespace Dapper
             handler = null;
             var nullUnderlyingType = Nullable.GetUnderlyingType(type);
             if (nullUnderlyingType is not null) type = nullUnderlyingType;
-            //akara mod
-            if (!Settings.SendEnumAsObject && type.IsEnum && !typeMap.ContainsKey(type))
+            if (type.IsEnum && !typeMap.ContainsKey(type))
             {
                 if (Settings.PreferTypeHandlersForEnums && typeHandlers.TryGetValue(type, out handler))
                 {
@@ -3789,8 +3788,7 @@ namespace Dapper
                             il.EmitCall(OpCodes.Call, typeof(Type).GetMethod(nameof(Type.GetTypeFromHandle))!, null);// stack is now [...][enum-type]
                             il.Emit(OpCodes.Ldloc, stringEnumLocal); // stack is now [...][enum-type][string]
                             il.Emit(OpCodes.Ldc_I4_1); // stack is now [...][enum-type][string][true]
-                            //akara mod
-                            il.EmitCall(OpCodes.Call, Settings.EnumParseMethod ?? enumParse, null); // stack is now [...][enum-as-object]
+                            il.EmitCall(OpCodes.Call, enumParse, null); // stack is now [...][enum-as-object]
                             il.Emit(OpCodes.Unbox_Any, unboxType); // stack is now [...][typed-value]
                         }
                         else
