@@ -3,7 +3,7 @@
   "assemblyVersion": "2.0.0.0",
   "publicReleaseRefSpec": [
     "^refs/heads/main$",
-    "^refs/tags/v\\d+\\.\\d+"
+    "^refs/tags/v\\d+\\.\\d+.\\d+"
   ],
   "nugetPackageVersion": {
     "semVer": 2
