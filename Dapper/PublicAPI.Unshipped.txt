@@ -1,5 +1,4 @@
 ﻿#nullable enable
 static Dapper.SqlMapper.Settings.PreferTypeHandlersForEnums.get -> bool
 static Dapper.SqlMapper.Settings.PreferTypeHandlersForEnums.set -> void
-static Dapper.SqlMapper.Settings.ExternalLookupDbType.set -> void
 static Dapper.SqlMapper.Settings.SmellsLikeOleDb.set -> void

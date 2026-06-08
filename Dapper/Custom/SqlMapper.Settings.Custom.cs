@@ -1,7 +1,4 @@
 ﻿//akara mod
-using System;
-using System.Data;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Dapper
@@ -13,11 +10,6 @@ namespace Dapper
         /// </summary>
         public static partial class Settings
         {
-            /// <summary>
-            /// function for additional lookup DbType
-            /// </summary>
-            public static Func<PropertyInfo, DbType?>? ExternalLookupDbType { internal get; set; }
-
             /// <summary>
             /// Regex for find params like Ole
             /// </summary>
