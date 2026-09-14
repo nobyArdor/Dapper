@@ -2567,7 +2567,10 @@ namespace Dapper
             
             if (filterParams && Settings.SupportLegacyParameterTokens)
             {
-                filterParams = !CompiledRegex.LegacyParameter.IsMatch(identity.Sql);
+                //akara mod
+                var smellsLikeOleDbChecker = Settings.SmellsLikeOleDb ?? CompiledRegex.LegacyParameter;
+                filterParams = !smellsLikeOleDbChecker.IsMatch(identity.Sql);
+
             }
             
             var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, [typeof(IDbCommand), typeof(object)], type, true);
