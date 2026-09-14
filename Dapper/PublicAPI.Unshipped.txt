@@ -2,3 +2,4 @@
 static Dapper.SqlMapper.Settings.PreferTypeHandlersForEnums.get -> bool
 static Dapper.SqlMapper.Settings.PreferTypeHandlersForEnums.set -> void
 Dapper.DynamicParameters.AddParameters(System.Data.IDbCommand! command) -> void
+static Dapper.SqlMapper.Settings.SmellsLikeOleDb.set -> void
